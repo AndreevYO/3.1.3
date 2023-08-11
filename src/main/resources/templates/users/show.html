@@ -68,11 +68,13 @@
   <p>Username: <span th:text="${user.getUsername()}"></span></p>
   <p>Password: <span th:text="${user.getPassword()}"></span></p>
 
-  <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Edit</a>
+  <a th:href="@{/admin/user/{id}/edit(id=${user.getId()})}">Edit</a>
 
   <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
     <input type="submit" value="Delete"/>
   </form>
+  <a th:href="@{/admin}">back</a>
+  <a class="btn" th:href="@{/logout}">Logout</a>
 </div>
 
 </body>

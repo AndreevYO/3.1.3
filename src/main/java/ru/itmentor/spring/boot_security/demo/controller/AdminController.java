@@ -26,7 +26,7 @@ public class AdminController {
         return "users/index";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("user/{id}")
     public String getUserById(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "users/show";
@@ -46,7 +46,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/user/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUserById(id));
         return "users/edit";
