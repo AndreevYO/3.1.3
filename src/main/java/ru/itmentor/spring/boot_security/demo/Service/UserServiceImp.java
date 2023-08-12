@@ -37,7 +37,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     @Transactional
     public User getUserById(int id) {
-        return userRepository.getById(id);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override

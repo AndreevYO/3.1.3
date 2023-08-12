@@ -1,16 +1,13 @@
 package ru.itmentor.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.itmentor.spring.boot_security.demo.Models.User;
 import ru.itmentor.spring.boot_security.demo.Service.UserServiceImp;
 
-import javax.validation.Valid;
+import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/admin")
 public class AdminController {
     private final UserServiceImp userService;
@@ -21,48 +18,31 @@ public class AdminController {
     }
 
     @GetMapping
-    public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "users/index";
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("user/{id}")
-    public String getUserById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "users/show";
+    public User getUserById(@PathVariable("id") int id) {
+
+        return userService.getUserById(id);
     }
 
-    @GetMapping("/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "users/new";
-    }
-
-    @PostMapping
-    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "users/new";
+    @PostMapping()
+    public List<User> create(@RequestBody User user) {
         userService.save(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/user/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "users/edit";
+        return userService.getAllUsers();
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
-        if (bindingResult.hasErrors())
-            return "users/edit";
+    public List<User> update(@RequestBody User user, @PathVariable("id") int id) {
         userService.update(id, user);
-        return "redirect:/admin";
+        return userService.getAllUsers();
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
+    public List<User> delete(@PathVariable("id") int id) {
         userService.delete(id);
-        return "redirect:/admin";
+        return userService.getAllUsers();
     }
 }

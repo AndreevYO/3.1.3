@@ -3,7 +3,6 @@ package ru.itmentor.spring.boot_security.demo.Models;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -13,16 +12,16 @@ public class Role implements GrantedAuthority {
     private int id;
     @Column
     private String name;
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private Set<User> users;
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+//    private Set<User> users;
+//
+//    public Set<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(Set<User> users) {
+//        this.users = users;
+//    }
 
     public Role() {
 

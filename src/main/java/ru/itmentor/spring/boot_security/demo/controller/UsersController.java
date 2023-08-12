@@ -1,16 +1,15 @@
 package ru.itmentor.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.itmentor.spring.boot_security.demo.Models.User;
 import ru.itmentor.spring.boot_security.demo.Service.UserServiceImp;
 
 import java.security.Principal;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UsersController {
     private final UserServiceImp userService;
@@ -21,9 +20,8 @@ public class UsersController {
     }
 
     @GetMapping()
-    public String getUserById(Model model, Principal principal) {
-        User user = (User) userService.loadUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "users/UsersShow";
+    public User getUserById(Principal principal) {
+
+        return (User) userService.loadUserByUsername(principal.getName());
     }
 }
